@@ -1,6 +1,7 @@
 #include "debug.h"
 #include <sstream>
 #include <iomanip>
+#include <cmath>
 using namespace debug; //Remove namespace temporarily
 
 
@@ -65,12 +66,12 @@ std::string debugMenu::getFacingString() {
 	return facing.str();
 }
 
-std::string debugMenu::getDebugBiomeString() {
+std::string debugMenu::getBiomeString() {
 	TilePos coords = *new TilePos(currentLevel->getLocalPlayer()->x, currentLevel->getLocalPlayer()->y, currentLevel->getLocalPlayer()->z);
 	return "Biome: " + biomeTypeNames[currentTS->getBiome(coords)->getBiomeType()];
 }
 
-std::string debugMenu::getDebugLightString() {
+std::string debugMenu::getLightString() {
 	std::stringstream light;
 	TilePos coords(currentLevel->getLocalPlayer()->x, currentLevel->getLocalPlayer()->y, currentLevel->getLocalPlayer()->z);
 	int skyLight = currentTS->getBrightness(LightLayer::Sky, coords);
