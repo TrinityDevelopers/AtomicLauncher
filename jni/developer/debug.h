@@ -17,5 +17,5 @@ namespace debug{
 	private:
 		Level* currentLevel;
 		TileSource* currentTS;
-	}
+	};
 }
