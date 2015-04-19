@@ -16,7 +16,7 @@
 
 using namespace debug;
 
-debugMenu::debugMenuHandle = NULL;
+debugMenu debugMenu::debugMenuHandle = NULL;
 
 static void (*Gui$render_real)(Gui*, float, bool, int, int);
 static void Gui$render_hook(Gui* gui, float a, bool b, int c, int d) {
