@@ -6,6 +6,8 @@
 namespace debug{
 	class debugMenu{
 	public:
+		static debugMenu debugMenuHandle;
+	public:
 		debugMenu(Level*, TileSource*);
 		std::string getVersionString();
 		std::string getCoordsString();
