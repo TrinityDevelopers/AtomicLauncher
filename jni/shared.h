@@ -9,5 +9,5 @@ static Font* font;
 static Level* currentLevel;
 static TileSource* tileSource;
 static MinecraftClient* minecraftClient;
-static bool debug = true;
+static bool debugBool = true;
 static Button* debugButton = NULL;
