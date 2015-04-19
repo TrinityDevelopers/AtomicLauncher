@@ -14,21 +14,22 @@
 #include "developer/mcpe.h"
 #include "developer/debug.h"
 
-debug::debugMenu debugMenuHandle;
+using namespace debug;
 
+debugMenu::debugMenuHandle = NULL;
 
 static void (*Gui$render_real)(Gui*, float, bool, int, int);
 static void Gui$render_hook(Gui* gui, float a, bool b, int c, int d) {
 	Gui$render_real(gui, a, b, c, d);
 	
-	if(debug) {
+	if(debugBool && debugMenu::debugMenuHandle != NULL) {
 		int pxY = 1;
-		font->drawTransformed(debugMenu.getVersionString(), 1, pxY, Color::WHITE, 0, font->getLineLength(debugMenu.getVersionString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getCoordsString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getBlockCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getBlockCoordsString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getChunkCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getChunkCoordsString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getFacingString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getFacingString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getBiomeString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getBiomeString()), false, 0.8f);
+		font->drawTransformed(debugMenu::debugMenuHandle.getVersionString(), 1, pxY, Color::WHITE, 0, font->getLineLength(debugMenu::debugMenuHandle.getVersionString()), false, 0.8f);
+		font->drawTransformed(debugMenu::debugMenuHandle.getCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu::debugMenuHandle.getCoordsString()), false, 0.8f);
+		font->drawTransformed(debugMenu::debugMenuHandle.getBlockCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu::debugMenuHandle.getBlockCoordsString()), false, 0.8f);
+		font->drawTransformed(debugMenu::debugMenuHandle.getChunkCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu::debugMenuHandle.getChunkCoordsString()), false, 0.8f);
+		font->drawTransformed(debugMenu::debugMenuHandle.getFacingString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu::debugMenuHandle.getFacingString()), false, 0.8f);
+		font->drawTransformed(debugMenu::debugMenuHandle.getBiomeString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu::debugMenuHandle.getBiomeString()), false, 0.8f);
 		//font->drawTransformed(getDebugLightString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(getDebugLightString()), false, 0.8f);
 	}
 	if(!debugButton) {
@@ -44,7 +45,7 @@ static void Gui$render_hook(Gui* gui, float a, bool b, int c, int d) {
 static void (*mouseDown_real)(int, int, int);
 static void mouseDown_hook(int idk, int x, int y) {
 	mouseDown_real(idk, x, y);
-	if(debugButton && debugButton->isInside(x / 4, y / 4)) debug = !debug;
+	if(debugButton && debugButton->isInside(x / 4, y / 4)) debugBool = !debugBool;
 }
 
 static void (*MinecraftClient$leaveGame_real)(MinecraftClient*, bool, bool);
@@ -63,7 +64,7 @@ static void (*Level$onSourceCreated_real)(Level*, TileSource*);
 static void Level$onSourceCreated_hook(Level* lvl, TileSource* ts) {
 	Level$onSourceCreated_real(lvl, ts);
 	//currentLevel = lvl;
-	debugMenuHandle = debug::debugMenu(lvl, ts);
+	debugMenu::debugMenuHandle = debug::debugMenu(lvl, ts);
 }
 
 static void (*Gui$Gui_real)(Gui*, MinecraftClient*);
