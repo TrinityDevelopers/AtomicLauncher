@@ -21,14 +21,14 @@ static void (*Gui$render_real)(Gui*, float, bool, int, int);
 static void Gui$render_hook(Gui* gui, float a, bool b, int c, int d) {
 	Gui$render_real(gui, a, b, c, d);
 	
-	if(debug) {
+	if(debugBool) {
 		int pxY = 1;
-		font->drawTransformed(debugMenu.getVersionString(), 1, pxY, Color::WHITE, 0, font->getLineLength(debugMenu.getVersionString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getCoordsString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getBlockCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getBlockCoordsString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getChunkCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getChunkCoordsString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getFacingString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getFacingString()), false, 0.8f);
-		font->drawTransformed(debugMenu.getBiomeString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getBiomeString()), false, 0.8f);
+		font->drawTransformed(debugMenuHandle.getVersionString(), 1, pxY, Color::WHITE, 0, font->getLineLength(debugMenu.getVersionString()), false, 0.8f);
+		font->drawTransformed(debugMenuHandle.getCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getCoordsString()), false, 0.8f);
+		font->drawTransformed(debugMenuHandle.getBlockCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getBlockCoordsString()), false, 0.8f);
+		font->drawTransformed(debugMenuHandle.getChunkCoordsString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getChunkCoordsString()), false, 0.8f);
+		font->drawTransformed(debugMenuHandle.getFacingString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getFacingString()), false, 0.8f);
+		font->drawTransformed(debugMenuHandle.getBiomeString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(debugMenu.getBiomeString()), false, 0.8f);
 		//font->drawTransformed(getDebugLightString(), 1, pxY += 8, Color::WHITE, 0, font->getLineLength(getDebugLightString()), false, 0.8f);
 	}
 	if(!debugButton) {
@@ -44,7 +44,7 @@ static void Gui$render_hook(Gui* gui, float a, bool b, int c, int d) {
 static void (*mouseDown_real)(int, int, int);
 static void mouseDown_hook(int idk, int x, int y) {
 	mouseDown_real(idk, x, y);
-	if(debugButton && debugButton->isInside(x / 4, y / 4)) debug = !debug;
+	if(debugButton && debugButton->isInside(x / 4, y / 4)) debugBool = !debugBool;
 }
 
 static void (*MinecraftClient$leaveGame_real)(MinecraftClient*, bool, bool);
