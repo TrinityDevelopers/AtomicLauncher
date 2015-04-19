@@ -1,6 +1,6 @@
 #pragma once
 #include <android/log.h>
-#include "mcpe.h"
+#include "developer/mcpe.h"
 
 #define LOG_TAG "AtomicLauncher"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
